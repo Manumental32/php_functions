@@ -1,0 +1,33 @@
+
+/**
+ * Guardo el estado y el valor del alert
+ * @param [string] $status success, info, warning, danger
+ * @param [type] $msg    [description]
+ */
+function setAlert($status, $msg)
+{
+	return $_SESSION["alert"] = array('status'=>$status, 'msg' => $msg);
+}
+
+/**
+ * div para el msg de bootstrap
+ * @return [html] [.alert]
+ */
+function showAlert()
+{
+    if (!empty($_SESSION["alert"])) {
+        ?>
+        <div class="alert alert-<?=$_SESSION["alert"]["status"]?>" role="alert"><?=$_SESSION["alert"]["msg"]?></div>
+        <?
+        unset($_SESSION["alert"]);
+    }
+}
+
+function getAlert()
+{	
+	if (!empty($_SESSION["alert"])) {
+		pdump($_SESSION["alert"],true);
+	} else {
+		die('alert vacia!!');
+	}
+}
